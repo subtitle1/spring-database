@@ -33,6 +33,7 @@ public class EmployeeController {
 	public String list(Model model) {
 		List<Employee> employees = employeeService.getAllEmployees();
 		model.addAttribute("employees", employees);
+		
 		return "employee/list.jsp";
 	}
 	
