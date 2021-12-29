@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="basicDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="url"			 value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username"		 value="hr"></property>
+		<property name="password"		 value="zxcv1234"></property>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="basicDataSource"></property>
+	</bean>
+	
+	<bean id="employeeDaoImpl" class="com.sample.dao.EmployeeDaoImpl">
+		<property name="template" ref="jdbcTemplate"></property>
+	</bean>
+	
+	<bean id="jobDaoImpl" class="com.sample.dao.JobDaoImpl">
+		<property name="template" ref="jdbcTemplate"></property>
+	</bean>
+
+	<bean id="employeeServiceImpl" class="com.sample.service.EmployeeServiceImpl">
+		<property name="employeeDao" ref="employeeDaoImpl"></property>
+	</bean>
+	
+	<bean id="jobServiceImpl" class="com.sample.service.JobserviceImpl">
+		<property name="jobDao" ref="jobDaoImpl"></property>
+	</bean>
+</beans>
